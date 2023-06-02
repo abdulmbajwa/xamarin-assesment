@@ -35,8 +35,13 @@ jobs:
 #           api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
 
       - name: Setup Android signing
-        run: (echo ${{ secrets.KEYSTORE }} | base64 --decode) > ./XamarinTest/XamarinTest.Android/keystore.jks
-        
+        shell: pwsh
+        run: |
+            $Base64String = 'TheBase64StringHere'
+            $FileName = "XamarinTest\XamarinTest.Android\keystore.jks"
+            [byte[]]$Bytes = [convert]::FromBase64String($Base64String)
+            [System.IO.File]::WriteAllBytes($FileName,$Bytes)
+            
 #       - name: Set iOS version
 #         run: |
 #           /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ secrets.APP_VERSION }}" ./GitHubActions.iOS/Info.plist
