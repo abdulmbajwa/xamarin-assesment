@@ -35,7 +35,7 @@ jobs:
 #           api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
 
       - name: Setup Android signing
-        run: (echo ${{ secrets.KEYSTORE }} | base64 --decode) > ./GitHubActions.Android/keystore.jks
+        run: (echo ${{ secrets.KEYSTORE }} | base64 --decode) > ./XamarinTest/XamarinTest.Android/keystore.jks
         
 #       - name: Set iOS version
 #         run: |
@@ -45,7 +45,7 @@ jobs:
       - name: Set Android version
         uses: damienaicheh/update-android-version-manifest-action@v1.0.0
         with:
-          android-manifest-path: ./GitHubActions.Android/Properties/AndroidManifest.xml
+          android-manifest-path: ./XamarinTest/XamarinTest.Android/Properties/AndroidManifest.xml
           version-name: ${{ secrets.APP_VERSION }}
           version-code: ${{ github.run_number }}
           print-file: true
