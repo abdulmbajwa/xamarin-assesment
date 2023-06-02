@@ -61,9 +61,18 @@ jobs:
         
       - name: Setup App Center CLI
         run: npm install -g appcenter-cli
-        
+
+      - name: 'Build UI Test'
+        shell: pwsh # For Linux, use bash
+        run: |
+          pushd './UITest'
+          dotnet build --configuration Release --output ./output
+          popd
+
 #       - name: Upload iOS app to App Center
 #         run: appcenter distribute release --silent --file ./GitHubActions.iOS/bin/iPhone/Release/GitHubActions.iOS.ipa --app SByteDev/GitHubActions.Xamarin-iOS --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
-          
+      - name: Run tests UI Tests in App Center
+        run: appcenter test run uitest --app "abdulrahimbajwa/xamarin-test" --devices 920eea75 --app-path ./XamarinTest/XamarinTest.Android/bin/Release/com.companyname.xamarintest.apk --test-series "master" --locale "en_US" --build-dir ./UITest/output
+
       - name: Upload Android app to App Center
-        run: appcenter distribute release --silent --file ./XamarinTest/XamarinTest.Android/bin/Release/dev.sbyte.github_actions_xamarin-Signed.apk --app SByteDev/XamarinTest.Xamarin-Android --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
+        run: appcenter distribute release --silent --file ./XamarinTest/XamarinTest.Android/bin/Release/com.companyname.xamarintest.apk --app SByteDev/XamarinTest.Xamarin-Android --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
