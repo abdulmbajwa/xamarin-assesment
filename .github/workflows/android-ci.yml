@@ -37,7 +37,7 @@ jobs:
       - name: Setup Android signing
     
         run: |
-            $Base64String = '${{ secrets.KEYSTORE }}'
+            $Base64String = ${{ secrets.KEYSTORE }}
             $FileName = "XamarinTest\XamarinTest.Android\keystore.jks"
             [byte[]]$Bytes = [convert]::FromBase64String($Base64String)
             [System.IO.File]::WriteAllBytes($FileName,$Bytes)
