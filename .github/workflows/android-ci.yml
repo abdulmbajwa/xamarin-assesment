@@ -60,18 +60,17 @@ jobs:
           version-code: ${{ github.run_number }}
           print-file: true
 
-      - name: Restore NuGet packages
-        run: nuget restore
-      
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
 
+      - name: Restore NuGet packages
+        run: nuget restore
+      
 #       - name: Build iOS
 #         run: MSBuild /t:Build /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true ./GitHubActions.iOS/GitHubActions.iOS.csproj
  
       - name: 'Build UI Test'
-        shell: pwsh # For Linux, use bash
-        run: msbuild -p:Configuration=Release ./XamarinTest/UITest/UITest.csproj
+        run: msbuild /p:Configuration=Release ./XamarinTest/UITest/UITest.csproj
 
       - name: Build Android
         run: msbuild /t:SignAndroidPackage /p:Configuration=Release /p:AndroidPackageFormat=apk /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=xamarintest /p:AndroidSigningKeyPass=${{ secrets.KEYSTORE_PASSWORD }} /p:AndroidSigningKeyStore=keystore.jks /p:AndroidSigningStorePass=${{ secrets.KEYSTORE_PASSWORD }} ./XamarinTest/XamarinTest.Android/XamarinTest.Android.csproj
