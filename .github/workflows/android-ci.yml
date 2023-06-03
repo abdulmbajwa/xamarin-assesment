@@ -35,11 +35,16 @@ jobs:
 #           api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
 
       - name: Setup Android signing
-    
-        run: |
-          $FileName = "./XamarinTest/XamarinTest.Android/keystore.jks"
-          [byte[]]$Bytes = [convert]::FromBase64String("${{ env.KEYSTORE }}")
-          [System.IO.File]::WriteAllBytes($FileName,$Bytes)
+        uses: timheuer/base64-to-file@v1.2
+        with:
+            fileName: 'keystore.jks'
+            fileDir: './XamarinTest/XamarinTest.Android/'
+            encodedString: ${{ secrets.KEYSTORE }}
+
+        #run: |
+        #  $FileName = "./XamarinTest/XamarinTest.Android/keystore.jks"
+        #  [byte[]]$Bytes = [convert]::FromBase64String("${{ env.KEYSTORE }}")
+        #  [System.IO.File]::WriteAllBytes($FileName,$Bytes)
 
             
 #       - name: Set iOS version
