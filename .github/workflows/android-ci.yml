@@ -70,7 +70,7 @@ jobs:
 #         run: MSBuild /t:Build /p:Configuration=Release /p:Platform=iPhone /p:BuildIpa=true ./GitHubActions.iOS/GitHubActions.iOS.csproj
  
       - name: 'Build UI Test'
-        run: msbuild /p:Configuration=Release ./XamarinTest/UITest/UITest.csproj
+        run: msbuild /p:Configuration=Release ./UITest/UITest.csproj
 
       - name: Build Android
         run: msbuild /t:SignAndroidPackage /p:Configuration=Release /p:AndroidPackageFormat=apk /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=xamarintest /p:AndroidSigningKeyPass=${{ secrets.KEYSTORE_PASSWORD }} /p:AndroidSigningKeyStore=keystore.jks /p:AndroidSigningStorePass=${{ secrets.KEYSTORE_PASSWORD }} ./XamarinTest/XamarinTest.Android/XamarinTest.Android.csproj
