@@ -37,9 +37,9 @@ jobs:
       - name: Setup Android signing
     
         run: |
-            $FileName = "XamarinTest\XamarinTest.Android\keystore.jks"
-            [byte[]]$Bytes = [convert]::FromBase64String("${{ env.KEYSTORE }}")
-            [System.IO.File]::WriteAllBytes($FileName,$Bytes)
+          $FileName = "./XamarinTest/XamarinTest.Android/keystore.jks"
+          [byte[]]$Bytes = [convert]::FromBase64String("${{ env.KEYSTORE }}")
+          [System.IO.File]::WriteAllBytes($FileName,$Bytes)
 
             
 #       - name: Set iOS version
