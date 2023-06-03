@@ -71,9 +71,6 @@ jobs:
  
       - name: Build Android
         run: msbuild /t:SignAndroidPackage /p:Configuration=Release /p:AndroidPackageFormat=apk /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=xamarintest /p:AndroidSigningKeyPass=${{ secrets.KEYSTORE_PASSWORD }} /p:AndroidSigningKeyStore=keystore.jks /p:AndroidSigningStorePass=${{ secrets.KEYSTORE_PASSWORD }} ./XamarinTest/XamarinTest.Android/XamarinTest.Android.csproj
-        
-      - name: Setup App Center CLI
-        run: npm install -g appcenter-cli
 
       - name: 'Build UI Test'
         shell: pwsh # For Linux, use bash
@@ -81,6 +78,9 @@ jobs:
           pushd './UITest'
           dotnet build --configuration Release --output ./output
           popd
+        
+      - name: Setup App Center CLI
+        run: npm install -g appcenter-cli
 
 #       - name: Upload iOS app to App Center
 #         run: appcenter distribute release --silent --file ./GitHubActions.iOS/bin/iPhone/Release/GitHubActions.iOS.ipa --app SByteDev/GitHubActions.Xamarin-iOS --group Collaborators --token ${{ secrets.APP_CENTER_TOKEN }}
